@@ -9,8 +9,8 @@ const co = require('co');
 // Get environment variables.
 const envTMP = process.env.TMP || '/tmp/qmk-';
 const envPORT = process.env.PORT || 80;
-const envQMK = process.env.QMK || null;
-const envSTATIC = process.env.STATIC || null;
+const envQMK = process.env.QMK || __dirname + '/qmk_firmware';
+const envSTATIC = process.env.STATIC || __dirname + '/../static';
 if (envQMK === null) {
   console.error('No QMK environment variable specified');
   process.exit(1);
@@ -30,6 +30,7 @@ app.all('*', (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	console.log('req:', req.url);
 	next();
 });
 
